@@ -1,0 +1,454 @@
+///Анимации////////////////////
+@keyframes cornersAnimation {
+    0% {
+        width: 0;
+        height: 0;
+    }
+
+    100% {
+        width: 10px;
+        height: 10px;
+    }
+}
+
+@keyframes logoContainerBorderAnimation {
+    0% {
+        box-shadow: none
+    }
+
+    100% {
+        box-shadow: inset 0 0 0 1px rgba(128, 128, 128, 0.355);
+    }
+}
+
+@keyframes navLinkAnimation {
+    0% {
+        opacity: 0;
+        top: -100%;
+    }
+
+    100% {
+        opacity: 1;
+        top: 0%;
+    }
+}
+
+@keyframes captionAnimation {
+    100% {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+///Контейнер с основными компонентами/////////////////////
+.mainContainer {
+    position: relative;
+
+    header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        background: rgba(0, 0, 0, 0.395);
+        box-shadow: inset 0 0 0 1px rgba(128, 128, 128, 0.355);
+        z-index: 1;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+
+    }
+
+    main {
+        position: absolute;
+        top: 50vh;
+        left: 0;
+        transform: translateY(-50%);
+        width: 100%;
+
+    }
+}
+
+
+
+///шапка и ссылки////////////////////////////////////////
+.nav {
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    max-width: 1170px;
+    width: calc(100% - 10vmin);
+    flex-wrap: nowrap;
+
+    .logoContainer {
+        padding: 15px;
+        padding-bottom: 25px;
+        position: relative;
+        animation: logoContainerBorderAnimation 1s forwards ease-in-out 1s;
+
+        .corners_top,
+        .corners_bottom {
+            position: absolute;
+            left: 0;
+            width: 100%;
+
+        }
+
+        .corners_top {
+            top: 0;
+
+            &::after,
+            &::before {
+                content: '';
+                display: block;
+                height: 0;
+                width: 0;
+                position: absolute;
+                top: 0;
+                border-top: 1px solid white;
+                animation: cornersAnimation 1s forwards ease-in-out 1s;
+            }
+
+            &::after {
+                left: 0;
+                border-left: 1px solid white;
+            }
+
+            &::before {
+                right: 0;
+                border-right: 1px solid white;
+            }
+        }
+
+        .corners_bottom {
+            bottom: 0;
+
+            &::after,
+            &::before {
+                content: '';
+                display: block;
+                height: 0;
+                width: 0;
+                position: absolute;
+                bottom: 0;
+                border-bottom: 1px solid white;
+                animation: cornersAnimation 1s forwards ease-in-out 1s;
+            }
+
+            &::after {
+                left: 0;
+                border-left: 1px solid white;
+            }
+
+            &::before {
+                right: 0;
+                border-right: 1px solid white;
+            }
+        }
+    }
+
+    .nav_allLinks {
+
+        display: grid;
+        column-gap: 20px;
+        grid-template-columns: repeat(6, auto);
+        grid-template-rows: auto auto auto;
+
+        .nav-link {
+            color: white;
+            position: relative;
+            padding: 5px 0;
+            white-space: nowrap;
+            width: fit-content;
+            animation: navLinkAnimation .5s ease-out forwards;
+            opacity: 0;
+
+            @for $i from 1 through 6 {
+                &:nth-child(#{$i}) {
+                    animation-delay: 100ms * $i;
+                }
+            }
+
+            &::after {
+                content: '';
+                position: absolute;
+                top: 100%;
+                left: 0;
+                height: 1px;
+                width: 0%;
+                background: white;
+                transition: width .5s cubic-bezier(.17, .67, .65, 1);
+            }
+
+            &:hover {
+                color: grey;
+
+                &::after {
+                    width: 100%;
+                }
+            }
+        }
+    }
+}
+
+//////////////////////////////////////////////////////////
+
+
+
+///Карточки с выгодой/////////////////////////////////////
+.benefits {
+    .benefits_item {
+        padding: 25px;
+        color: white;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        text-align: center;
+        z-index: 1;
+        aspect-ratio: 1 / 1;
+        white-space: nowrap;
+        margin-left: 10px;
+        margin-bottom: 10px;
+        min-width: fit-content;
+        opacity: .5;
+        border: 1px solid rgba(164, 164, 164, 0.13);
+        transition: opacity .5s;
+
+        span {
+            line-height: 1;
+        }
+
+        &:hover {
+            opacity: 1;
+        }
+    }
+}
+
+//////////////////////////////////////////////////////////
+
+
+
+///Надпись с кнопкой/////////////////////////////////////////
+.caption {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    transform: translateX(-100%);
+    opacity: 0;
+    animation: captionAnimation 1s ease-out forwards;
+
+    .caption_title {
+        span {
+            color: white;
+            font-size: 20px;
+            background: -webkit-linear-gradient(45deg, #ffffff, #e65410);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+
+            &:first-of-type {
+                font-size: 60px;
+                text-transform: uppercase;
+                font-weight: 700;
+                line-height: 1;
+            }
+        }
+    }
+
+    .caption_button {
+        cursor: pointer;
+        color: white;
+        position: relative;
+        width: fit-content;
+        padding: 10px 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: transform .5s ease-in-out;
+
+        &:hover {
+            transform: scale(1.05);
+
+            &::before {
+                border-image-source: linear-gradient(102deg, #026cedab, #d53a9c00, #026cedab);
+            }
+
+            .caption_button_corners {
+
+                &::after,
+                &::before {
+                    height: 100%;
+                    width: 100%;
+                }
+            }
+        }
+
+        &::before {
+            content: '';
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            background: transparent;
+            top: 0;
+            right: 0;
+            border: 10px solid;
+            border-image-slice: 1;
+            border-width: 2px;
+            border-image-source: linear-gradient(12deg, #026cedab, #d53a9c00, #026cedab);
+            transition: border-image-source .5s;
+        }
+
+        .caption_button_corners {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+
+            &::after,
+            &::before {
+                content: '';
+                position: absolute;
+                height: 6px;
+                width: 6px;
+                background: transparent;
+                transition: all .5s ease-in-out;
+            }
+
+            &::after {
+                bottom: 0;
+                left: 0;
+                border-left: 2px solid white;
+                border-bottom: 2px solid white;
+            }
+
+            &::before {
+                top: 0;
+                right: 0;
+                border-right: 2px solid white;
+                border-top: 2px solid white;
+            }
+        }
+    }
+}
+
+/////////////////////////////////////////////////////////////
+
+
+
+///Фигура планеты////////////////////////////////////////////
+.planet {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    img {
+        height: calc((1vh + 1vw)*19);
+        position: relative;
+        z-index: 1;
+    }
+
+    .sunlight {
+        position: absolute;
+        top: -21%;
+        left: -21%;
+        width: 200%;
+        background: rgb(255, 255, 255);
+        background: -moz-radial-gradient(circle, rgba(255, 255, 255, 1) 8%, rgba(244, 192, 27, 0.8374999658066351) 18%, rgba(235, 93, 36, 0.8038865204284839) 27%, rgba(235, 93, 36, 0) 50%);
+        background: -webkit-radial-gradient(circle, rgba(255, 255, 255, 1) 8%, rgba(244, 192, 27, 0.8374999658066351) 18%, rgba(235, 93, 36, 0.8038865204284839) 27%, rgba(235, 93, 36, 0) 50%);
+        background: radial-gradient(circle, rgba(255, 255, 255, 1) 8%, rgba(244, 192, 27, 0.8374999658066351) 18%, rgba(235, 93, 36, 0.8038865204284839) 27%, rgba(235, 93, 36, 0) 50%);
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffffff", endColorstr="#eb5d24", GradientType=1);
+        aspect-ratio: 1/1
+    }
+}
+
+/////////////////////////////////////////////////////////////
+
+
+
+///Медиа-теги//////////////////////////////////////////////////
+@media (max-width: 1000px) {
+    .planet {
+        z-index: -1;
+    }
+
+    .benefits {
+        .benefits_item {
+            padding: 10px;
+        }
+    }
+
+    .nav {
+        justify-content: center;
+
+        .nav_allLinks {
+            position: absolute;
+            top: 100%;
+            // grid-template-columns: repeat(3, auto);
+        }
+    }
+}
+
+@media (max-width:700px) {
+    .mainContainer {
+        header {
+            .nav {
+                justify-content: center;
+
+                .nav_allLinks {
+                    position: absolute;
+                    top: 100%;
+                    grid-template-columns: repeat(3, auto);
+                    background: rgba(0, 0, 0, 0.644);
+                }
+            }
+        }
+
+        main {
+            flex-direction: column;
+            align-items: center;
+            transform: none;
+            justify-content: start;
+            top: 0;
+            padding: 30vh 0;
+            height: 100vh;
+            overflow-y: scroll;
+
+            &::-webkit-scrollbar {
+                width: 0;
+            }
+
+            .planet {
+                position: fixed;
+                left: 90%;
+
+                img {
+                    height: calc((1vh + 1vw)*29);
+                }
+            }
+
+            .caption {
+                gap: 20vh;
+
+                .caption_title {
+                    span {
+                        &:first-of-type {
+                            font-size: calc((1vh + 1vw) * 4.5);
+                            text-transform: uppercase;
+                            font-weight: 700;
+                            line-height: 1;
+                        }
+                    }
+                }
+            }
+
+            .benefits {
+                margin-top: 50vh;
+                width: 100%;
+
+                .benefits_item {
+                    // background: rgba(193, 59, 6, 0.584) !important;
+                }
+            }
+        }
+
+    }
+}
+
+///////////////////////////////////////////////////////////////

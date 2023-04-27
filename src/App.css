@@ -1,0 +1,6 @@
+#root {
+  max-width: 1170px;
+  width: calc(100% - 10vmin) ;
+  margin: 0 auto;
+  
+}

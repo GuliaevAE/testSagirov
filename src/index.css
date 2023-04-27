@@ -1,0 +1,31 @@
+body {
+  margin: 0;
+  display: flex;
+
+  min-width: 100vw;
+  min-height: 100vh;
+  background-image: url(./assets/cosmosBg.jpg);
+  background-size: 100% 50%;
+  /* background-position: 50% 50%; */
+  animation: cosmosAnimation 15s infinite linear;
+  background-repeat:repeat-y  ;
+}
+
+body,
+html {
+  overflow: hidden;
+}
+
+* {
+  box-sizing: border-box
+}
+
+@keyframes cosmosAnimation {
+  0% {
+    background-position: 100% 0%;
+  }
+
+  100% {
+    background-position: 100% 100%;
+  }
+}
